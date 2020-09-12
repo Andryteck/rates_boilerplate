@@ -3,6 +3,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { RouterState } from 'connected-react-router'
 
 import { ICommonState } from 'reducers/common'
+import { IChartState } from 'reducers/chart'
 
 export interface IAction<T> extends Action<string> {
   payload?: T
@@ -11,6 +12,7 @@ export interface IAction<T> extends Action<string> {
 export interface IAppState {
   router: RouterState
   common: ICommonState
+  chart: IChartState
 }
 
 export type TAppActionThunk<TPayload, TReturn = void, > = ThunkAction<
