@@ -1,27 +1,27 @@
-import { AnyAction } from 'redux'
-import {
-    START_FETCHING,
-    STOP_FETCHING,
-} from 'actions/common'
+import {AnyAction} from 'redux'
+import {SET_CHART_DATA} from "actions/chart";
+
 
 const initState = {
-    fetching: false,
+    currencyID: 145,
+    startDate: '',
+    endDate: '',
+    data: []
 }
 
 export interface IChartState {
-    fetching: boolean
+    currencyID: number,
+    startDate: string,
+    endDate: string,
+    data: Array<number>
 }
 
-function chartReducer(state: IChartState = initState, { type, payload = null }: AnyAction) {
+function chartReducer(state: IChartState = initState, {type, payload = null}: AnyAction) {
     switch (type) {
-        case START_FETCHING: {
+        case SET_CHART_DATA: {
             return {
-                ...state, fetching: true,
-            }
-        }
-        case STOP_FETCHING: {
-            return {
-                ...state, fetching: false,
+                ...state,
+                data: payload.data
             }
         }
         default:
