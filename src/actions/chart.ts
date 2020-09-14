@@ -2,6 +2,7 @@ import {IAction, IAppState, TAppDispatchThunk} from 'store'
 import {startFetching, stopFetching} from "actions/common";
 import {chartAPI, ChartType} from "../api/chart";
 import * as dateFns from "date-fns";
+import {message} from 'antd';
 
 const MODULE_NAME = 'CHART'
 
@@ -21,13 +22,13 @@ export const getChartData = (currencyId: number): any => async (dispatch: TAppDi
 
         dispatch(setChartData(response.data))
     } catch (e) {
-        console.log(e)
+        message.error(e.message);
     } finally {
         dispatch(stopFetching())
     }
 }
 
-export const setChartData = (chartData: ChartType[]): any => async (dispatch: TAppDispatchThunk<{chartData: ChartType[]}>): Promise<void> => {
+export const setChartData = (chartData: ChartType[]): any => async (dispatch: TAppDispatchThunk<{ chartData: ChartType[] }>): Promise<void> => {
     dispatch({
         type: SET_CHART_DATA,
         payload: {

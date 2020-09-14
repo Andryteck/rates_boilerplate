@@ -9,7 +9,7 @@ const initState = {
     startDate: dateFns.format(startDate, 'MM/dd/yyyy'),
     endDate: dateFns.format(endDate, 'MM/dd/yyyy'),
     chartData: [],
-    currencies: [{label: 'USD', value: 145}, {label: 'EUR', value: 292}, {label: 'RUB', value: 298}],
+    currencies: [{label: 'USD', value: 145}, {label: 'EUR', value: 292}, {label: 'RUB', value: 298}]
 }
 
 interface ICurrencies {
@@ -23,10 +23,9 @@ export interface IChartState {
     endDate: string,
     chartData: ChartType[],
     currencies: ICurrencies[],
-
 }
 
-function chartReducer(state: IChartState = initState, {type, payload = null}: AnyAction):IChartState {
+function chartReducer(state: IChartState = initState, {type, payload = null}: AnyAction): IChartState {
     switch (type) {
         case SET_CHART_DATA: {
             return {

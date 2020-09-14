@@ -30,7 +30,7 @@ const Rates: React.FC<TComponentProps> = (props) => {
                     },
                     title: {
                         text: 'Сurrency rates',
-                        align: 'left'
+                        align: 'center'
                     },
                     grid: {
                         row: {
@@ -48,7 +48,6 @@ const Rates: React.FC<TComponentProps> = (props) => {
             }
         ), [props.chartRate, props.chartDate]
     )
-
 
     const type = 'line'
 
