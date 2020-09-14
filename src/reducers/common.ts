@@ -12,7 +12,7 @@ export interface ICommonState {
   fetching: boolean
 }
 
-function commonReducer(state: ICommonState = initState, { type, payload = null }: AnyAction) {
+function commonReducer(state: ICommonState = initState, { type, payload = null }: AnyAction):ICommonState {
   switch (type) {
     case START_FETCHING: {
       return {

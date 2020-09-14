@@ -8,14 +8,14 @@ const instance = axios.create({
 
 export const chartAPI = {
     getChartData(currencyId: number, startDate: string, endDate: string) {
-        return instance.get<ChartDataType[]>(`/${currencyId}?startdate=${startDate}&enddate=${endDate}`)
+        return instance.get<ChartType[]>(`/${currencyId}?startdate=${startDate}&enddate=${endDate}`)
     }
 }
 
 
 //types
 
-export type ChartDataType = {
+export type ChartType = {
         "Cur_ID": number,
         "Date": string,
         "Cur_OfficialRate": number
