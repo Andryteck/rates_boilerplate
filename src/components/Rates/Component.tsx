@@ -1,8 +1,8 @@
 import React, {useEffect, useMemo} from 'react'
 import ApexChart, {Props} from 'react-apexcharts'
 import {TReduxProps} from './Container'
-import {StyledContainer} from './style'
-import {Select} from 'antd';
+import {StyledContainer, StyledSpinnerContainer} from './style'
+import {Select, Spin} from 'antd';
 
 export type TComponentProps = {} & TReduxProps
 
@@ -12,6 +12,7 @@ const Rates: React.FC<TComponentProps> = (props) => {
         () => ({
                 series: [{
                     name: "Rates",
+                    // get array of chartRate and chartDate
                     data: props.chartRate.map((c, i) => [props.chartDate[i], c])
                 }],
                 options: {
@@ -58,11 +59,17 @@ const Rates: React.FC<TComponentProps> = (props) => {
 
     return (
         <StyledContainer>
+            <StyledSpinnerContainer>
+                {
+                    props.fetching && <Spin/>
+                }
+            </StyledSpinnerContainer>
+
             <ApexChart
                 options={chartOptions.options}
                 series={chartOptions.series}
                 type={type}
-                width={500}
+                width={600}
                 height={400}
             />
             <>

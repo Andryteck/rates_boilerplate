@@ -6,3 +6,11 @@ export const StyledContainer = styled.div`
   justify-content:center;
   align-items: center;
 `
+
+export const StyledSpinnerContainer = styled.div`
+  height:40px;
+  align-items:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  `

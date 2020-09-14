@@ -8,7 +8,9 @@ const MODULE_NAME = 'CHART'
 export const SET_CHART_DATA = `${MODULE_NAME}/SET_CHART_DATA`
 export const SET_CHART_CURRENCY = `${MODULE_NAME}/SET_CHART_CURRENCY`
 
+//get current date
 export const endDate = new Date()
+//get  the last date of the week
 export const startDate = dateFns.addDays(endDate, -6)
 
 export const getChartData = (currencyId: number): any => async (dispatch: TAppDispatchThunk<never>, getState: () => IAppState): Promise<void> => {
