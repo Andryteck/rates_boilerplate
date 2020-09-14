@@ -2,12 +2,10 @@ import React, {useEffect} from 'react'
 import ApexChart, {Props} from 'react-apexcharts'
 import {TReduxProps} from './Container'
 import {StyledContainer} from './style'
-import {getChartData} from "actions/chart";
-import {Dropdown, Menu} from "antd";
+import {Select} from 'antd';
+const { Option } = Select;
 
-export type TComponentProps = {
-
-} & TReduxProps
+export type TComponentProps = {} & TReduxProps
 
 const Rates: React.FC<TComponentProps> = (props) => {
 
@@ -16,23 +14,9 @@ const Rates: React.FC<TComponentProps> = (props) => {
     const type = 'line'
 
     useEffect(() => {
-        getChartData(props.currencyID, props.startDate, props.endDate)
+        props.getChartData(props.currencyId)
+    }, [props.currencyId])
 
-    }, [props.currencyID, props.startDate, props.endDate])
-
-    const menu = (
-        <Menu>
-            <Menu.Item key="1" >
-                1st menu item
-            </Menu.Item>
-            <Menu.Item key="2" >
-                2nd menu item
-            </Menu.Item>
-            <Menu.Item key="3" >
-                3rd menu item
-            </Menu.Item>
-        </Menu>
-    )
     return (
         <StyledContainer>
             <ApexChart
@@ -42,9 +26,18 @@ const Rates: React.FC<TComponentProps> = (props) => {
                 width={500}
                 height={300}
             />
-            <Dropdown.Button overlay={menu}>
-                Dropdown
-            </Dropdown.Button>
+            <>
+            <Select style={{width: 200}}
+                    defaultValue={props.currencies[0].value}
+                    options={props.currencies}
+                    placeholder={props.currencies[0].label}
+                    optionFilterProp="children"
+            >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="tom">Tom</Option>
+            </Select>
+                </>
         </StyledContainer>
     )
 }

@@ -1,19 +1,28 @@
 import {AnyAction} from 'redux'
-import {SET_CHART_DATA} from "actions/chart";
+import {endDate, SET_CHART_CURRENCY, SET_CHART_DATA, startDate} from "actions/chart";
+import * as dateFns from "date-fns";
+import {ChartDataType} from "../api/chart";
 
 
 const initState = {
-    currencyID: 145,
-    startDate: '',
-    endDate: '',
-    data: []
+    currencyId: 145,
+    startDate: dateFns.format(startDate, 'MM/dd/yyyy'),
+    endDate: dateFns.format(endDate, 'MM/dd/yyyy'),
+    chartData: [],
+    currencies: [{label: 'USD', value: 145}, {label: 'EUR', value: 292}, {label: 'RUB', value: 298}]
+}
+
+interface ICurrencies {
+    label: string,
+    value: number
 }
 
 export interface IChartState {
-    currencyID: number,
+    currencyId: number,
     startDate: string,
     endDate: string,
-    data: Array<number>
+    chartData: ChartDataType[],
+    currencies: ICurrencies[]
 }
 
 function chartReducer(state: IChartState = initState, {type, payload = null}: AnyAction) {
@@ -21,7 +30,13 @@ function chartReducer(state: IChartState = initState, {type, payload = null}: An
         case SET_CHART_DATA: {
             return {
                 ...state,
-                data: payload.data
+                chartData: payload.chartData
+            }
+        }
+        case SET_CHART_CURRENCY: {
+            return {
+                ...state,
+                currencyId: payload.currencyId
             }
         }
         default:

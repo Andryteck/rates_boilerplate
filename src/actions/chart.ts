@@ -1,23 +1,46 @@
 import {IAction, IAppState, TAppDispatchThunk} from 'store'
 import {startFetching, stopFetching} from "actions/common";
-import {chartAPI} from "../api/chart";
+import {chartAPI, ChartDataType} from "../api/chart";
+import * as dateFns from "date-fns";
 
 const MODULE_NAME = 'CHART'
 
 export const SET_CHART_DATA = `${MODULE_NAME}/SET_CHART_DATA`
-//export const SET_CHART_CURRENCY = `${MODULE_NAME}/SET_CHART_CURRENCY`
+export const SET_CHART_CURRENCY = `${MODULE_NAME}/SET_CHART_CURRENCY`
 
+export const endDate = new Date()
+export const startDate = dateFns.addDays(endDate, -6)
 
-export const getChartData = (currencyID: number, startDate: string, endDate: string): any => async (dispatch: TAppDispatchThunk<never>): Promise<void> => {
+export const getChartData = (currencyId: number): any => async (dispatch: TAppDispatchThunk<never>, getState: () => IAppState): Promise<void> => {
     dispatch(startFetching())
 
     try {
-        const response = await chartAPI.getChartData(currencyID, startDate, endDate)
+        const response = await chartAPI.getChartData(currencyId, dateFns.format(startDate, 'MM/dd/yyyy'), dateFns.format(endDate, 'MM/dd/yyyy'))
+
+        dispatch(setChartData(response.data))
     } catch (e) {
         console.log(e)
-    }
-    finally {
+    } finally {
         dispatch(stopFetching())
     }
 }
+
+export const setChartData = (chartData: ChartDataType[]): any => async (dispatch: TAppDispatchThunk<{ chartData: ChartDataType[] }>): Promise<void> => {
+    dispatch({
+        type: SET_CHART_DATA,
+        payload: {
+            chartData
+        }
+    })
+}
+export const setChartCurrency = (currencyId: number): any => async (dispatch: TAppDispatchThunk<{ currencyId: number }>): Promise<void> => {
+    dispatch({
+        type: SET_CHART_CURRENCY,
+        payload: {
+            currencyId
+        }
+    })
+}
+
+
 

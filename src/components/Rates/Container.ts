@@ -1,17 +1,19 @@
-import { connect, ConnectedProps } from 'react-redux'
+import {connect, ConnectedProps} from 'react-redux'
 
-import { IAppState } from 'store'
+import {IAppState} from 'store'
 import Component from './Component'
 import {getChartData} from "actions/chart";
 
 const mapStateToProps = (state: IAppState) => ({
-  fetching: state.common.fetching,
-  //currencyID: state.chart.currencyID,
-  //startDate: state.chart.startDate,
-  //endDate: state.chart.endDate,
+    fetching: state.common.fetching,
+    currencyId: state.chart.currencyId,
+    startDate: state.chart.startDate,
+    endDate: state.chart.endDate,
+    currencies: state.chart.currencies
+    //currencyRate: state.chart.chartData
 })
 const mapActionsToProps = (dispatch) => ({
-  getChartData: (currencyID, startDate, endDate) => dispatch(getChartData(currencyID, startDate, endDate))
+    getChartData: (currencyId) => dispatch(getChartData(currencyId))
 })
 
 
